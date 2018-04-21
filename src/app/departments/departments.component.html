@@ -1,0 +1,141 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Departamentos cadastrados</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-7">
+    <button type="button" class="btn btn-icon" routerLink="/department-new">
+      <clr-icon shape="plus"></clr-icon> Criar novo
+    </button>
+    <input #searchBox type="text" id="search-box" (keyup)="search(searchBox.value)" placeholder="Pesquise por nome" />
+    <!--<table class="table table-striped table-bordered">
+      <tr>Creation date
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Editar</th>
+        <th>Remover</th>
+        <th>Visualizar Usuários</th>
+      </tr>
+      <tr *ngFor="let department of departments">
+        <td>{{department.id}}</td>
+        <td>{{department.name}}</td>
+        <td>{{department.email}}</td>
+        <td>
+          <button type="button" class="btn btn-icon btn-warning-outline" routerLink="/department-detail/{{department.id}}">
+            <clr-icon shape="pencil"></clr-icon>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-icon btn-danger" (click)="opened = true">
+            <clr-icon shape="trash"></clr-icon>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-icon btn-primary" (click)="loadDepartment(department)">
+            <clr-icon shape="eye"></clr-icon>
+          </button>
+        </td>
+        <clr-modal [(clrModalOpen)]="opened" [clrModalClosable]="true">
+          <h3 class="modal-title">Deseja realmente excluir departamento {{department.name}}?</h3>
+          <div class="modal-body">
+            <p>Ao confirmar, essa ação não poderá ser desfeita.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteDepartment(department); opened = false">
+              Confirmar!
+            </button>
+            <button type="button" class="btn btn-danger" (click)="opened = false">
+              Cancelar
+            </button>
+          </div>
+        </clr-modal>
+      </tr>
+    </table>
+  -->
+    <clr-datagrid>
+      <clr-dg-column>ID</clr-dg-column>
+      <clr-dg-column>Nome</clr-dg-column>
+      <clr-dg-column>E-mail</clr-dg-column>
+      <clr-dg-column>Editar</clr-dg-column>
+      <clr-dg-column>Remover</clr-dg-column>
+      <clr-dg-column>Visualizar usuários</clr-dg-column>
+
+      <clr-dg-row *clrDgItems="let department of departments">
+        <clr-dg-cell>{{department.id}}</clr-dg-cell>
+        <clr-dg-cell>{{department.name}}</clr-dg-cell>
+        <clr-dg-cell>{{department.email}}</clr-dg-cell>
+        <clr-dg-cell>
+          <button type="button" class="btn btn-icon btn-warning-outline" routerLink="/department-detail/{{department.id}}">
+            <clr-icon shape="pencil"></clr-icon>
+          </button>
+        </clr-dg-cell>
+        <clr-dg-cell>
+          <button type="button" class="btn btn-icon btn-danger" (click)="opened = true">
+            <clr-icon shape="trash"></clr-icon>
+          </button>
+        </clr-dg-cell>
+        <clr-dg-cell>
+          <button type="button" class="btn btn-icon btn-primary" (click)="loadDepartment(department)">
+            <clr-icon shape="eye"></clr-icon>
+          </button>
+        </clr-dg-cell>
+        <clr-modal [(clrModalOpen)]="opened" [clrModalClosable]="true">
+          <h3 class="modal-title">Deseja realmente excluir departamento {{department.name}}?</h3>
+          <div class="modal-body">
+            <p>Ao confirmar, essa ação não poderá ser desfeita.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteDepartment(department); opened = false">
+              Confirmar!
+            </button>
+            <button type="button" class="btn btn-danger" (click)="opened = false">
+              Cancelar
+            </button>
+          </div>
+        </clr-modal>
+      </clr-dg-row>
+
+      <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="2">
+          {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} de {{pagination.totalItems}} departamentos
+        </clr-dg-pagination>
+      </clr-dg-footer>
+    </clr-datagrid>
+  </div>
+  <div class="col-md-5" *ngIf="selectedDepartment">
+    <h3>Usuários do Departamento</h3>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+      </tr>
+      <tr *ngFor="let user of selectedDepartment.users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+      </tr>
+    </table>
+    <h3>Adicione novos usuários</h3>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Adicionar</th>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="addUserInDepartment(user)">
+            <clr-icon shape="plus"></clr-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

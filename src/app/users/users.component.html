@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>Usuários cadastrados</h2>
+    <input #searchBox type="text" id="search-box" (keyup)="search(searchBox.value)" placeholder="Pesquise por nome ou e-mail"
+      size="45" />
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Login</th>
+        <th>Editar</th>
+        <th>Remover</th>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.login}}</td>
+        <td>
+          <button type="button" class="btn btn-icon btn-warning-outline" (click)="loadUser(user)">
+            <clr-icon shape="pencil"></clr-icon>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-icon btn-danger" (click)="opened = true">
+            <clr-icon shape="trash"></clr-icon>
+          </button>
+        </td>
+        <clr-modal [(clrModalOpen)]="opened" [clrModalClosable]="true">
+          <h3 class="modal-title">Deseja realmente excluir usuário {{user.name}}?</h3>
+          <div class="modal-body">
+            <p>Ao confirmar, essa ação não poderá ser desfeita.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteUser(user); opened = false">
+              Confirmar!
+            </button>
+            <button type="button" class="btn btn-danger" (click)="opened = false">
+              Cancelar
+            </button>
+          </div>
+        </clr-modal>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <h2>Detalhes</h2>
+    <h2 class="label">
+      ID: {{selectedUser.id}}
+    </h2>
+    <form>
+      <section class="form-block">
+        <div class="form-group">
+          <label>Nome: </label>
+          <input [(ngModel)]="selectedUser.name" type="text" name="name" class="form-control" placeholder="Digite o nome aqui...">
+        </div>
+        <div class="form-group">
+          <label>E-mail: </label>
+          <input [(ngModel)]="selectedUser.email" type="text" name="email" class="form-control" placeholder="Digite o e-mail aqui...">
+        </div>
+        <div class="form-group">
+          <label>Login: </label>
+          <input [(ngModel)]="selectedUser.login" type="text" name="login" class="form-control" placeholder="Digite o login aqui...">
+        </div>
+        <div class="form-group">
+          <label>Senha: </label>
+          <input [(ngModel)]="selectedUser.password" type="password" name="password" class="form-control" placeholder="Digite a senha aqui...">
+        </div>
+        <button type="button" class="btn btn-primary" *ngIf="selectedUser.id==undefined" (click)="addUser()">Adicionar</button>
+        <button type="button" class="btn btn-primary" *ngIf="selectedUser.id>0" (click)="editUser()">Salvar</button>
+        <button type="button" class="btn btn-danger" (click)="clearFields()">Cancelar</button>
+      </section>
+    </form>
+  </div>
+</div>

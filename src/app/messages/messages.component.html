@@ -1,0 +1,38 @@
+<div *ngIf="messageService.messagesError.length">
+  <div class="alert alert-danger" *ngFor="let message of messageService.messagesError">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="alert-text">{{message}}</span>
+        <div class="alert-actions">
+          <div class="alert-action dropdown bottom-right">
+            <button class="btn btn-outline-danger btn-sm" (click)="messageService.messagesError = [];">
+              Limpar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="messageService.messagesSuccess.length">
+  <div class="alert alert-success" *ngFor="let message of messageService.messagesSuccess">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="check-circle"></clr-icon>
+        </div>
+        <span class="alert-text">{{message}}</span>
+        <div class="alert-actions">
+          <div class="alert-action dropdown bottom-right">
+            <button class="btn btn-outline-success btn-sm" (click)="messageService.messagesSuccess = [];">
+              Limpar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
